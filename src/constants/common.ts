@@ -1,0 +1,11 @@
+export const ACCESS_TOKEN = 'access_token';
+export const RERESH_TOKEN = 'auth_token';
+export const X_IS_LOGIN = 'X-Is-Login';
+export const X_CURRENT_PATH = 'X-Current-Path';
+export const SET_COOKIE = 'Set-Cookie';
+export const AUTHORIZATION = 'Authorization';
+export const CONTENT_TYPE = 'Content-Type';
+export const APPLICATION_JSON = 'application/json';
+export const APPLICATION_FORM_URLENCODED = 'application/x-www-form-urlencoded';
+export const BEARER = 'Bearer';
+export const CONTENT_DISPOSITION = 'Content-Disposition';
