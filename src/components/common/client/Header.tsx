@@ -43,7 +43,8 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 transition-colors hover:text-gray-900">
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
                 {item.name}
               </Link>
             ))}
@@ -59,7 +60,8 @@ export default function Header() {
               </span>
               <Link
                 href="/mypage"
-                className="text-gray-600 transition-colors hover:text-gray-900">
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
                 My Page
               </Link>
               <Link
@@ -68,7 +70,8 @@ export default function Header() {
                 onNavigate={(e) => {
                   e.preventDefault();
                   handleLogout();
-                }}>
+                }}
+              >
                 Logout
               </Link>
             </>
@@ -76,12 +79,14 @@ export default function Header() {
             <>
               <Link
                 href="/login"
-                className="text-gray-600 transition-colors hover:text-gray-900">
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
                 Login
               </Link>
               <Link
                 href="/signup"
-                className="text-gray-600 transition-colors hover:text-gray-900">
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
                 Sign Up
               </Link>
             </>

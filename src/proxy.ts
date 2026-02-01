@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { SET_COOKIE, X_CURRENT_PATH, X_IS_LOGIN } from "./constants/common";
-import { appFetch } from "./utils/fetch/app-fetch";
+import { NextRequest, NextResponse } from 'next/server';
+import { SET_COOKIE, X_CURRENT_PATH, X_IS_LOGIN } from './constants/common';
+import { appFetch } from './utils/fetch/app-fetch';
 
 export const config = {
   matcher: [
@@ -8,7 +8,7 @@ export const config = {
   ],
 };
 
-const REDIRECT_PATH_SET = new Set(["/login", "/signup"]);
+const REDIRECT_PATH_SET = new Set(['/login', '/signup']);
 
 const nextResponse = (
   request: NextRequest,
@@ -17,7 +17,7 @@ const nextResponse = (
 ) => {
   const path = request.nextUrl.pathname;
   if (isLogin && REDIRECT_PATH_SET.has(path)) {
-    return NextResponse.redirect(new URL("/", request.nextUrl));
+    return NextResponse.redirect(new URL('/', request.nextUrl));
   }
 
   const nextResponse = NextResponse.next({
@@ -42,7 +42,7 @@ export async function proxy(request: NextRequest) {
   let cookie = null;
 
   try {
-    const response = await appFetch("/api/auth", { useNative: true });
+    const response = await appFetch('/api/auth', { useNative: true });
 
     isLogin = (await response.json())?.data ?? false;
     cookie = response.headers.get(SET_COOKIE);

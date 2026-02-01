@@ -73,12 +73,14 @@ type AppFetchType = {
   (
     url: string,
     options?: FetchOptions & { useNative: true },
-    timeout?: number
+    timeout?: number,
   ): Promise<Response>;
   // require generic wrap ResponseApi type
-  <R>(url: string, options?: FetchOptions, timeout?: number): Promise<
-    ResponseApi<R>
-  >;
+  <R>(
+    url: string,
+    options?: FetchOptions,
+    timeout?: number,
+  ): Promise<ResponseApi<R>>;
 };
 
 /**
@@ -87,7 +89,7 @@ type AppFetchType = {
 export const appFetch = (async <R>(
   url: string,
   options?: FetchOptions,
-  timeout: number = 2000
+  timeout: number = 2000,
 ): Promise<ResponseApi<R> | Response> => {
   let timer: NodeJS.Timeout | null = null;
   const abortController = new AbortController();

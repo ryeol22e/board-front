@@ -42,7 +42,7 @@ async function getBody(request: NextRequest) {
  */
 export const routeFetch = async (
   request: NextRequest,
-  options: Omit<RequestInit, 'method' | 'body'> = {}
+  options: Omit<RequestInit, 'method' | 'body'> = {},
 ): Promise<Response> => {
   const url = request.nextUrl;
   const path = `${url.pathname}${
@@ -69,7 +69,7 @@ export const routeFetch = async (
     {
       ...fetchOptions,
       body: await getBody(request),
-    }
+    },
   );
 
   if (!response.ok) {

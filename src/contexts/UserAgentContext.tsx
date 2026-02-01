@@ -5,7 +5,7 @@ import { createContext, useRef } from 'react';
 
 type UserAgentProviderProps = { userAgent: UserAgentType } & ChildrenType;
 export const UserAgentContext = createContext<UserAgentType | undefined>(
-  undefined
+  undefined,
 );
 
 export default function UserAgentProvider({

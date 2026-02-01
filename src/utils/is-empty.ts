@@ -7,7 +7,7 @@ export const isEmpty = <T>(data: T): data is T => {
 
   switch (type) {
     case 'string': {
-      if ((data as string).replace(/\s|\t|\r|\n/g, '').length === 0) {
+      if ((data as string).replaceAll(/\s|\t|\r|\n/g, '').length === 0) {
         return true;
       }
 

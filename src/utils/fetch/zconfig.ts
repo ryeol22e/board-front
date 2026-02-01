@@ -58,8 +58,8 @@ const flatQueryArray = (query: object, parentKey?: string) => {
             value.flatMap((item, index) =>
               typeof item === 'object'
                 ? flatQueryArray(item, combineKey.concat(`[${index}]`))
-                : [`${combineKey}[${index}]=${item}`]
-            )
+                : [`${combineKey}[${index}]=${item}`],
+            ),
           );
         } else {
           array = array.concat(flatQueryArray(value, combineKey));
@@ -113,7 +113,7 @@ export async function createHttpError(response: Response): Promise<HttpError> {
     response.status,
     typeof errorBody !== 'string'
       ? (errorBody as Record<string, string>).message
-      : errorBody
+      : errorBody,
   );
 }
 
@@ -122,7 +122,7 @@ export async function createHttpError(response: Response): Promise<HttpError> {
  * @param response The fetch response object.
  */
 export async function responseData<R>(
-  response: Response
+  response: Response,
 ): Promise<ResponseApi<R>> {
   const cloneJson = response.clone();
   const cloneText = response.clone();

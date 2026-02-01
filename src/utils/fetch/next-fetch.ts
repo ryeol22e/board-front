@@ -10,12 +10,14 @@ type AppFetchType = {
   (
     url: string,
     options?: FetchOptions & { useNative: true },
-    timeout?: number
+    timeout?: number,
   ): Promise<Response>;
   // require generic wrap ResponseApi type
-  <R>(url: string, options?: FetchOptions, timeout?: number): Promise<
-    ResponseApi<R>
-  >;
+  <R>(
+    url: string,
+    options?: FetchOptions,
+    timeout?: number,
+  ): Promise<ResponseApi<R>>;
 };
 type NextFetchType = {
   create: ({ requestInterceptor, responseInterceptor }: CreateType) => void;

@@ -23,7 +23,7 @@ export default async function Providers({ children }: Readonly<ChildrenType>) {
 
   if (isLogin) {
     const { data: userInfo } = await appFetch<UserInfoType>('/api/user').catch(
-      () => ({ data: null })
+      () => ({ data: null }),
     );
 
     global.isLogin = isLogin;

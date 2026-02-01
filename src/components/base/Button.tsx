@@ -23,14 +23,23 @@ const buttonVariants = cva(
       variant: 'primary',
       size: 'md',
     },
-  }
+  },
 );
 
-export interface ButtonProps extends ComponentPropsWithoutRef<'button'>, VariantProps<typeof buttonVariants> {
+export interface ButtonProps
+  extends
+    ComponentPropsWithoutRef<'button'>,
+    VariantProps<typeof buttonVariants> {
   children: ReactNode;
 }
 
-export default function Button({ children, className, variant, size, ...props }: ButtonProps) {
+export default function Button({
+  children,
+  className,
+  variant,
+  size,
+  ...props
+}: Readonly<ButtonProps>) {
   return (
     <button className={buttonVariants({ variant, size, className })} {...props}>
       {children}
