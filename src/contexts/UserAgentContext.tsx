@@ -1,7 +1,7 @@
 'use client';
 
 import type { ChildrenType, UserAgentType } from '@/types/base';
-import { createContext, useRef } from 'react';
+import { createContext } from 'react';
 
 type UserAgentProviderProps = { userAgent: UserAgentType } & ChildrenType;
 export const UserAgentContext = createContext<UserAgentType | undefined>(
@@ -12,10 +12,8 @@ export default function UserAgentProvider({
   children,
   userAgent,
 }: Readonly<UserAgentProviderProps>) {
-  const agent = useRef(userAgent);
-
   return (
-    <UserAgentContext.Provider value={agent.current}>
+    <UserAgentContext.Provider value={userAgent}>
       {children}
     </UserAgentContext.Provider>
   );
