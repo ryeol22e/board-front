@@ -31,11 +31,11 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#F2F4F6]">
+      <div className="container mx-auto flex items-center justify-between px-4 h-[60px]">
         {/* Left Section: Logo and Menu */}
         <div className="flex items-center space-x-8">
-          <Link href="/" className="text-2xl font-bold text-gray-800">
+          <Link href="/" className="text-2xl font-bold text-[#191F28]">
             MyLogo
           </Link>
           <nav className="hidden space-x-6 md:flex">
@@ -43,7 +43,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 transition-colors hover:text-gray-900"
+                className="text-[#4E5968] font-medium transition-colors hover:text-[#191F28] hover:bg-[#F2F4F6] px-3 py-2 rounded-lg"
               >
                 {item.name}
               </Link>
@@ -55,18 +55,18 @@ export default function Header() {
         <div className="flex items-center space-x-4">
           {isLogin ? (
             <>
-              <span className="text-gray-700">
+              <span className="text-[#333D4B] font-medium">
                 Welcome, {userInfo?.userName}!
               </span>
               <Link
                 href="/mypage"
-                className="text-gray-600 transition-colors hover:text-gray-900"
+                className="text-[#4E5968] font-medium transition-colors hover:text-[#191F28]"
               >
                 My Page
               </Link>
               <Link
                 href="/"
-                className="text-gray-600 transition-colors hover:text-gray-900"
+                className="text-[#4E5968] font-medium transition-colors hover:text-[#191F28]"
                 onNavigate={(e) => {
                   e.preventDefault();
                   handleLogout();
@@ -79,13 +79,13 @@ export default function Header() {
             <>
               <Link
                 href="/login"
-                className="text-gray-600 transition-colors hover:text-gray-900"
+                className="px-4 py-2 text-[#3182F6] bg-[#3182F6]/10 rounded-lg font-semibold transition-colors hover:bg-[#3182F6]/20"
               >
                 Login
               </Link>
               <Link
                 href="/signup"
-                className="text-gray-600 transition-colors hover:text-gray-900"
+                className="px-4 py-2 bg-[#3182F6] text-white rounded-lg font-semibold transition-colors hover:bg-[#1B64DA]"
               >
                 Sign Up
               </Link>

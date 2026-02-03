@@ -18,12 +18,12 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             name={name}
             type="checkbox"
             ref={ref}
-            className="h-4 w-4 shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            className="h-5 w-5 shrink-0 rounded-md border-gray-300 text-[#3182F6] focus:ring-[#3182F6]"
             {...props}
           />
         </div>
-        <div className="ml-3 text-sm leading-6">
-          <label htmlFor={checkboxId} className="font-medium text-gray-900">
+        <div className="ml-3 text-[15px] leading-6">
+          <label htmlFor={checkboxId} className="font-medium text-[#333D4B]">
             {label}
           </label>
         </div>

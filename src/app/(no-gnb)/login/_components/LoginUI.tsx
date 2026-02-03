@@ -16,5 +16,12 @@ export default function LoginUI() {
       replace('/');
     }
   };
-  return <button onClick={handleLogin}>로그인</button>;
+  return (
+    <button
+      onClick={handleLogin}
+      className="w-full py-4 bg-[#3182F6] hover:bg-[#1B64DA] text-white font-bold rounded-xl text-lg transition-all active:scale-[0.98]"
+    >
+      로그인
+    </button>
+  );
 }

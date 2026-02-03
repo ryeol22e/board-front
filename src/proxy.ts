@@ -3,9 +3,7 @@ import { SET_COOKIE, X_CURRENT_PATH, X_IS_LOGIN } from './constants/common';
 import { appFetch } from './utils/fetch/app-fetch';
 
 export const config = {
-  matcher: [
-    String.raw`/((?!api|_next/static|_next/image|favicon.ico).*)(?<!\.(?:svg|png|jpg|jpeg|gif|webp|json))`,
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
 
 const REDIRECT_PATH_SET = new Set(['/login', '/signup']);
