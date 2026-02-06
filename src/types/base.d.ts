@@ -28,6 +28,12 @@ export type UserAgentType = {
   };
 };
 
+export type ResponseApi<T> = {
+  status: number;
+  message: string;
+  data: T | null;
+};
+
 export type ReducerActionType<T = { [key: string]: unknown }> = {
   [key in keyof T]: T[key] extends undefined
     ? { type: key }
