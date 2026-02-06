@@ -19,26 +19,46 @@ type AppFetchType = {
 //  https://github.com/unjs/ofetch
 const $fetch = ofetch.create({
   baseURL: process.env.NEXT_BASE_API_URL,
+  retry: 3,
+  retryDelay: 500,
   // onRequest({ request, options }) {}
   // onResponse({ request, options, response }) {}
   // onRequestError({ request, options, error }) {}
   // onResponseError({ request, response, options }) {}
-  onRequest({ request, options }) {
+  onRequest({ request }) {
     console.log('request : ', request);
-
-    options.timeout = 2000;
-    options.retry = 3;
-    options.retryDelay = 500;
   },
   onResponse({ options }) {},
   onRequestError({ error }) {
-    throw new Error(error.message, { cause: error.cause });
-  },
-
-  onResponseError({ response }) {
-    throw new Error(response.statusText);
+    throw new FetchError(error.message, { cause: error.cause });
   },
 });
+
+const responseError = (error: unknown) => {
+  let status = 404;
+  let message = 'Unknown Error';
+
+  // 2. 에러가 객체인지 확인
+  if (error && typeof error === 'object') {
+    const err = error as FetchError;
+
+    if (err.response?.status) {
+      status = err.response.status;
+    } else if (err.status) {
+      status = err.status;
+    }
+
+    if (err.message) {
+      message = err.message;
+    }
+  }
+
+  return {
+    status,
+    message,
+    data: null,
+  };
+};
 
 /**
  * app fetch
@@ -89,28 +109,6 @@ export const appFetch = (async <R>(
       data: response as R,
     };
   } catch (error) {
-    let status = 404;
-    let message = 'Unknown Error';
-
-    // 2. 에러가 객체인지 확인
-    if (!error && typeof error === 'object') {
-      const err = error as FetchError;
-
-      if (err.response?.status) {
-        status = err.response.status;
-      } else if (err.status) {
-        status = err.status;
-      }
-
-      if (err.message) {
-        message = err.message;
-      }
-    }
-
-    return {
-      status,
-      message,
-      data: null,
-    };
+    return responseError(error);
   }
 }) as AppFetchType;

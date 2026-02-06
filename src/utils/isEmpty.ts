@@ -1,5 +1,5 @@
 const checkObjectEmptiness = (data: object): boolean => {
-  if (data instanceof Array) {
+  if (Array.isArray(data)) {
     return data.length === 0;
   }
 
@@ -44,7 +44,7 @@ export const isEmpty = <T>(data: T): boolean => {
 
   switch (type) {
     case 'string':
-      return (data as string).replace(/\s/g, '').length === 0;
+      return (data as string).replaceAll(/\s/g, '').length === 0;
 
     case 'object':
       return checkObjectEmptiness(data as object);

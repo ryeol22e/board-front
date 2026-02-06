@@ -98,7 +98,7 @@ export const maskResidentNumber = (rrn: string): string => {
   if (!rrn) {
     return '';
   }
-  const cleanRrn = rrn.replaceAll(/[^0-9]/g, '');
+  const cleanRrn = rrn.replaceAll(/\D/g, '');
 
   if (cleanRrn.length !== 13) return rrn;
 
@@ -114,7 +114,7 @@ export const maskCreditCard = (cardNumber: string): string => {
   if (!cardNumber) {
     return '';
   }
-  const cleanNumber = cardNumber.replaceAll(/[^0-9]/g, '');
+  const cleanNumber = cardNumber.replaceAll(/\D/g, '');
 
   if (cleanNumber.length < 12) return cardNumber;
 
