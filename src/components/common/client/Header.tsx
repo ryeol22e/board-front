@@ -2,7 +2,7 @@
 
 import { clearCache } from '@/actions/common';
 import { useGlobalStore } from '@/contexts/GlobalContext';
-import { appFetch } from '@/utils/fetch/app-fetch';
+import { appFetch } from '@/utils/appFetch';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 

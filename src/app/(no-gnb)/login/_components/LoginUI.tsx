@@ -1,7 +1,7 @@
 'use client';
 
 import { clearCache } from '@/actions/common';
-import { appFetch } from '@/utils/fetch/app-fetch';
+import { appFetch } from '@/utils/appFetch';
 import { useRouter } from 'next/navigation';
 
 export default function LoginUI() {
