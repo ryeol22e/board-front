@@ -36,29 +36,29 @@ export const maskPhoneNumber = (phoneNumber: string): string => {
   }
 
   // 숫자만 추출
-  const cleanNumber = phoneNumber.replace(/[^0-9]/g, '');
+  const cleanNumber = phoneNumber.replaceAll(/\D/g, '');
 
   // 서울 지역번호(02)인 경우
   if (cleanNumber.startsWith('02')) {
     if (cleanNumber.length === 9) {
       // 02-123-4567
-      return cleanNumber.replace(/(\d{2})(\d{3})(\d{4})/, '$1-***-$3');
+      return cleanNumber.replaceAll(/(\d{2})(\d{3})(\d{4})/, '$1-***-$3');
     }
     if (cleanNumber.length === 10) {
       // 02-1234-5678
-      return cleanNumber.replace(/(\d{2})(\d{4})(\d{4})/, '$1-****-$3');
+      return cleanNumber.replaceAll(/(\d{2})(\d{4})(\d{4})/, '$1-****-$3');
     }
   }
 
   // 그 외 지역번호 또는 휴대폰 번호
   if (cleanNumber.length === 10) {
     // 011-123-4567 or 031-123-4567
-    return cleanNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-***-$3');
+    return cleanNumber.replaceAll(/(\d{3})(\d{3})(\d{4})/, '$1-***-$3');
   }
 
   if (cleanNumber.length === 11) {
     // 010-1234-5678
-    return cleanNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-****-$3');
+    return cleanNumber.replaceAll(/(\d{3})(\d{4})(\d{4})/, '$1-****-$3');
   }
 
   // 포맷에 맞지 않는 경우 원본 반환
@@ -98,11 +98,11 @@ export const maskResidentNumber = (rrn: string): string => {
   if (!rrn) {
     return '';
   }
-  const cleanRrn = rrn.replace(/[^0-9]/g, '');
+  const cleanRrn = rrn.replaceAll(/[^0-9]/g, '');
 
   if (cleanRrn.length !== 13) return rrn;
 
-  return cleanRrn.replace(/(\d{6})(\d{1})(\d{6})/, '$1-$2******');
+  return cleanRrn.replaceAll(/(\d{6})(\d{1})(\d{6})/, '$1-$2******');
 };
 
 /**
@@ -114,7 +114,7 @@ export const maskCreditCard = (cardNumber: string): string => {
   if (!cardNumber) {
     return '';
   }
-  const cleanNumber = cardNumber.replace(/[^0-9]/g, '');
+  const cleanNumber = cardNumber.replaceAll(/[^0-9]/g, '');
 
   if (cleanNumber.length < 12) return cardNumber;
 

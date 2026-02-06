@@ -30,7 +30,7 @@ const $fetch = ofetch.create({
     options.retry = 3;
     options.retryDelay = 500;
   },
-  onResponse({}) {},
+  onResponse({ options }) {},
   onRequestError({ error }) {
     throw new Error(error.message, { cause: error.cause });
   },

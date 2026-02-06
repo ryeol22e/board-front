@@ -6,14 +6,11 @@ import { appFetch } from '@/utils/appFetch';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-const menuItems = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Products', href: '/products' },
-  { name: 'Contact', href: '/contact' },
-];
+type ClientHeaderProps = {
+  menus: Array<{ name: string; href: string }>;
+};
 
-export default function Header() {
+export default function ClientHeader({ menus }: Readonly<ClientHeaderProps>) {
   const { push } = useRouter();
   const { isLogin, userInfo } = useGlobalStore((state) => state);
 
@@ -39,7 +36,7 @@ export default function Header() {
             MyLogo
           </Link>
           <nav className="hidden space-x-6 md:flex">
-            {menuItems.map((item) => (
+            {menus.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}

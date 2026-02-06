@@ -13,14 +13,16 @@ const nextResponse = (
   isLogin: boolean,
   cookie: string | null,
 ) => {
-  const path = request.nextUrl.pathname;
+  const { nextUrl, headers } = request;
+  const path = nextUrl.pathname;
+
   if (isLogin && REDIRECT_PATH_SET.has(path)) {
-    return NextResponse.redirect(new URL('/', request.nextUrl));
+    return NextResponse.redirect(new URL('/', nextUrl));
   }
 
   const nextResponse = NextResponse.next({
     request: {
-      headers: request.headers,
+      headers: headers,
     },
     headers: {
       [X_CURRENT_PATH]: path,
