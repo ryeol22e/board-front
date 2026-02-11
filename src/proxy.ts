@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { SET_COOKIE, X_CURRENT_PATH, X_IS_LOGIN } from './constants/common';
 import { appFetch } from './utils/appFetch';
 
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
-};
-
 const REDIRECT_PATH_SET = new Set(['/login', '/signup']);
 
 const nextResponse = (
@@ -37,6 +33,11 @@ const nextResponse = (
   return nextResponse;
 };
 
+export const config = {
+  matcher: [
+    String.raw`/((?!api|_next/static|_next/image|.*\\.png$|.*\\.ico|.*\\.json).*)`,
+  ],
+};
 export async function proxy(request: NextRequest) {
   let isLogin = false;
   let cookie = null;

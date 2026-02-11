@@ -1,7 +1,7 @@
 import { ResponseApi } from '@/types/base';
 import { FetchError, FetchOptions, ofetch } from 'ofetch';
 
-type AppFetchOptions = Omit<FetchOptions, 'timeout'> & { useNative?: true };
+type AppFetchOptions = FetchOptions & { useNative?: true };
 type AppFetchType = {
   (
     path: string,
@@ -21,6 +21,7 @@ const $fetch = ofetch.create({
   baseURL: process.env.NEXT_BASE_API_URL,
   retry: 3,
   retryDelay: 500,
+  timeout: 2000,
   // onRequest({ request, options }) {}
   // onResponse({ request, options, response }) {}
   // onRequestError({ request, options, error }) {}
@@ -71,14 +72,13 @@ const responseError = (error: unknown) => {
 export const appFetch = (async <R>(
   path: string,
   options: AppFetchOptions,
-  timeout: number = 2000,
 ): Promise<ResponseApi<R> | Response> => {
   if (options && 'useNative' in options && options.useNative) {
     options.useNative = undefined;
-    const { headers, status, statusText, _data } = await $fetch.raw(path, {
-      ...options,
-      timeout,
-    });
+    const { headers, status, statusText, _data } = await $fetch.raw(
+      path,
+      options,
+    );
     const data = typeof _data === 'object' ? JSON.stringify(_data) : _data;
 
     return new Response(data, {
@@ -94,7 +94,7 @@ export const appFetch = (async <R>(
   }
 
   try {
-    const response = await $fetch(path, { ...options, timeout });
+    const response = await $fetch(path, options);
 
     if (!response) {
       throw new Error('do not get response data.');
