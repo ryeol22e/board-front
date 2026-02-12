@@ -13,15 +13,11 @@ export const maskName = (name: string): string => {
   if (len <= 1) return name;
 
   if (len === 2) {
-    return name.substring(0, 1) + '*';
+    return `${name[0]}*`;
   }
 
   // 3글자 이상인 경우 첫 글자와 마지막 글자를 제외하고 마스킹
-  const first = name.substring(0, 1);
-  const last = name.substring(len - 1, len);
-  const middle = '*'.repeat(len - 2);
-
-  return first + middle + last;
+  return `${name[0]}${'*'.repeat(len - 2)}${name.slice(-1)}`;
 };
 
 /**
@@ -37,28 +33,28 @@ export const maskPhoneNumber = (phoneNumber: string): string => {
 
   // 숫자만 추출
   const cleanNumber = phoneNumber.replaceAll(/\D/g, '');
+  const len = cleanNumber.length;
 
   // 서울 지역번호(02)인 경우
   if (cleanNumber.startsWith('02')) {
-    if (cleanNumber.length === 9) {
+    if (len === 9) {
       // 02-123-4567
-      return cleanNumber.replaceAll(/(\d{2})(\d{3})(\d{4})/, '$1-***-$3');
+      return cleanNumber.replace(/^(\d{2})(\d{3})(\d{4})$/, '$1-***-$3');
     }
-    if (cleanNumber.length === 10) {
+    if (len === 10) {
       // 02-1234-5678
-      return cleanNumber.replaceAll(/(\d{2})(\d{4})(\d{4})/, '$1-****-$3');
+      return cleanNumber.replace(/^(\d{2})(\d{4})(\d{4})$/, '$1-****-$3');
     }
-  }
-
-  // 그 외 지역번호 또는 휴대폰 번호
-  if (cleanNumber.length === 10) {
-    // 011-123-4567 or 031-123-4567
-    return cleanNumber.replaceAll(/(\d{3})(\d{3})(\d{4})/, '$1-***-$3');
-  }
-
-  if (cleanNumber.length === 11) {
-    // 010-1234-5678
-    return cleanNumber.replaceAll(/(\d{3})(\d{4})(\d{4})/, '$1-****-$3');
+  } else {
+    // 그 외 지역번호 또는 휴대폰 번호
+    if (len === 10) {
+      // 011-123-4567 or 031-123-4567
+      return cleanNumber.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1-***-$3');
+    }
+    if (len === 11) {
+      // 010-1234-5678
+      return cleanNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-****-$3');
+    }
   }
 
   // 포맷에 맞지 않는 경우 원본 반환
@@ -76,17 +72,18 @@ export const maskEmail = (email: string): string => {
     return '';
   }
 
-  const match = email.match(/^([^@]+)(@.*)$/);
-  if (!match) return email;
+  const atIndex = email.indexOf('@');
+  if (atIndex === -1) return email;
 
-  const [, localPart, domain] = match;
+  const localPart = email.slice(0, atIndex);
+  const domain = email.slice(atIndex);
   const len = localPart.length;
 
   if (len <= 3) {
-    return localPart + '****' + domain;
+    return `${localPart}****${domain}`;
   }
 
-  return localPart.substring(0, 3) + '****' + domain;
+  return `${localPart.slice(0, 3)}****${domain}`;
 };
 
 /**
@@ -102,7 +99,7 @@ export const maskResidentNumber = (rrn: string): string => {
 
   if (cleanRrn.length !== 13) return rrn;
 
-  return cleanRrn.replaceAll(/(\d{6})(\d{1})(\d{6})/, '$1-$2******');
+  return cleanRrn.replace(/^(\d{6})(\d)\d{6}$/, '$1-$2******');
 };
 
 /**
@@ -119,11 +116,10 @@ export const maskCreditCard = (cardNumber: string): string => {
   if (cleanNumber.length < 12) return cardNumber;
 
   // 앞 4자리, 뒤 4자리 제외하고 모두 마스킹 처리
-  const first4 = cleanNumber.substring(0, 4);
-  const last4 = cleanNumber.substring(cleanNumber.length - 4);
-  const middleMask = '****-****'; // 표준 16자리 기준 포맷팅
+  const first4 = cleanNumber.slice(0, 4);
+  const last4 = cleanNumber.slice(-4);
 
-  return `${first4}-${middleMask}-${last4}`;
+  return `${first4}-****-****-${last4}`;
 };
 
 /**
@@ -140,11 +136,10 @@ export const maskAccountNumber = (accountNumber: string): string => {
   // 길이가 너무 짧으면 마스킹하지 않음
   if (len < 7) return accountNumber;
 
-  const first3 = accountNumber.substring(0, 3);
-  const last4 = accountNumber.substring(len - 4);
-  const maskLen = len - 7;
+  const first3 = accountNumber.slice(0, 3);
+  const last4 = accountNumber.slice(-4);
 
-  return first3 + '*'.repeat(maskLen) + last4;
+  return `${first3}${'*'.repeat(len - 7)}${last4}`;
 };
 
 /**
@@ -160,7 +155,7 @@ export const maskPassportNumber = (passportNumber: string): string => {
 
   if (len < 8) return passportNumber;
 
-  return passportNumber.substring(0, len - 4) + '****';
+  return `${passportNumber.slice(0, -4)}****`;
 };
 
 /**
