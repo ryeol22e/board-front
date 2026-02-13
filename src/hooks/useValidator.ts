@@ -1,6 +1,12 @@
+'use client';
+
 import { ValidatorType } from '@/types/base';
 
-export const validator = () => {
+/**
+ * useValidator hook
+ * @returns
+ */
+export const useValidator = () => {
   const validate = (validators: Array<ValidatorType>) =>
     validators.every((valid) =>
       typeof valid === 'function' ? valid() : valid.validate(),
